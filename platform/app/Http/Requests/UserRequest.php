@@ -5,6 +5,12 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+/**
+ * Class UserRequest
+ * @package App\Http\Requests
+ * @property string $operator
+ * @property int $duration
+ */
 class UserRequest extends FormRequest
 {
     /**
