@@ -19,7 +19,8 @@ build: ## Build all containers and start (interact) for development
 
 platform-init: platform-key-generate \
 	platform-migrate-fresh \
-	platform-passport-install
+	platform-db-seed \
+	platform-test
 
 platform-key-generate: ## Run "platform" key generate
 	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" php artisan key:generate
@@ -30,8 +31,8 @@ platform-migrate: ## Run "platform" migrate database
 platform-migrate-fresh: ## Run "platform" migrate fresh database
 	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" php artisan migrate:fresh
 
-platform-passport-install: ## Run "platform" migrate database
-	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" php artisan passport:install
+platform-db-seed: ## Run "platform" seed database
+	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" php artisan db:seed
 
 platform-php-cli: ## Run "platform" php-cli bash
 	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" bash
