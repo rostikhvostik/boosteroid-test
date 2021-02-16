@@ -16,6 +16,17 @@ use Illuminate\Http\Resources\Json\JsonResource;
  */
 class SongResource extends JsonResource
 {
+    /**
+     * @OA\Schema(
+     *     schema="Song",
+     *     @OA\Property(property="id", type="integer", format="id"),
+     *     @OA\Property(property="email", type="string"),
+     *     @OA\Property(property="name", type="string"),
+     *     @OA\Property(property="last_duartion", type="integer"),
+     *     @OA\Property(property="total_duration", type="integer"),
+     *     @OA\Property(property="last_ip_address", type="string", format="ipv4"),
+     * ),
+     */
     public function toArray($request)
     {
         return [
@@ -28,3 +39,14 @@ class SongResource extends JsonResource
         ];
     }
 }
+
+/**
+ * @OA\Schema(
+ *     schema="SongResource",
+ *     @OA\Property(
+ *         property="data",
+ *         type="object",
+ *         ref="#/components/schemas/Song",
+ *     ),
+ * ),
+ */

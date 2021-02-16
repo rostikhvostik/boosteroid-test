@@ -10,6 +10,33 @@ use Illuminate\Http\Response;
 
 class SongController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/api/song",
+     *     summary="",
+     *     tags={"Song"},
+     *     @OA\Parameter(
+     *         name="email",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Parameter(
+     *         name="duration",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             ref="#/components/schemas/SongResource",
+     *         ),
+     *     ),
+     * )
+     */
     public function __invoke(SongRequest $request, SongHandler $handler)
     {
         $song = $handler->handle(
