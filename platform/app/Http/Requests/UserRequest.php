@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
  * Class UserRequest
  * @package App\Http\Requests
  * @property string $operator
- * @property int $duration
+ * @property int $total_duration
  */
 class UserRequest extends FormRequest
 {
@@ -32,7 +32,7 @@ class UserRequest extends FormRequest
     {
         return [
             'operator' => ['sometimes', Rule::in(['<', '=', '>'])],
-            'duration' => ['sometimes', 'integer', 'min:0', 'not_in:0'],
+            'total_duration' => ['sometimes', 'integer', 'min:0', 'not_in:0'],
         ];
     }
 }
