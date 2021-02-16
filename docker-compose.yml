@@ -1,0 +1,65 @@
+version: '3.8'
+
+# Volumes
+volumes:
+  platform-postgres:
+
+# Networks
+networks:
+  platform-network:
+    driver: bridge
+
+services:
+  # Nginx
+  platform-nginx:
+    image: nginx:alpine
+    volumes:
+      - ./platform/:/var/www
+      - ./platform/docker/local/nginx/conf.d/:/etc/nginx/conf.d
+      - ./platform/docker/local/nginx/certs:/etc/nginx/certs
+    ports:
+      - "8080:80"
+    depends_on:
+      - platform-php-fpm
+      - platform-php-cli
+    networks:
+      - platform-network
+
+  # Postgres
+  platform-postgres:
+    image: postgres:12.2-alpine
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - platform-postgres:/var/lib/postgresql/data
+    ports:
+      - "54321:5432"
+    networks:
+      - platform-network
+
+  # php-fpm
+  platform-php-fpm:
+    build:
+      context: platform/docker
+      dockerfile: common/php-fpm/Dockerfile
+    volumes:
+      - ./platform:/var/www
+    depends_on:
+      - platform-postgres
+    networks:
+      - platform-network
+
+  # php-cli
+  platform-php-cli:
+    build:
+      context: platform/docker
+      dockerfile: common/php-cli/Dockerfile
+    volumes:
+      - ./platform:/var/www
+    depends_on:
+      - platform-postgres
+    tty: true
+    networks:
+      - platform-network
