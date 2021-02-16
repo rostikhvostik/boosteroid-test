@@ -6,18 +6,18 @@ namespace App\UseCases\User;
  * Class Command
  * @package App\UseCases\User
  * @property string|null $operator
- * @property int|null $duration
+ * @property int|null $totalDuration
  */
 class Command
 {
     public ?string $operator;
-    public ?int $duration;
+    public ?int $totalDuration;
 
     public function __construct(
         ?string $operator,
-        ?int $duration
+        ?int $totalDuration
     ) {
         $this->operator = $operator;
-        $this->duration = $duration;
+        $this->totalDuration = $totalDuration;
     }
 }
