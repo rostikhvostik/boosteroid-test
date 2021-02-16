@@ -31,8 +31,8 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'operator' => ['sometimes', Rule::in(['<', '=', '>'])],
-            'total_duration' => ['sometimes', 'integer', 'min:0', 'not_in:0'],
+            'operator' => ['required_with:total_duration', Rule::in(['<', '=', '>'])],
+            'total_duration' => ['required_with:operator', 'integer', 'min:0'],
         ];
     }
 }
