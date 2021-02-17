@@ -17,10 +17,18 @@ build: ## Build all containers and start (interact) for development
 	$(docker_bin) image prune -a --force
 	$(docker_compose_bin) up --build -d
 
-platform-init: platform-key-generate \
+platform-init: platform-composer-install \
+	platform-enviroment-copy \
+	platform-key-generate \
 	platform-migrate-fresh \
 	platform-db-seed \
 	platform-test
+
+platform-composer-install: ## Run "platform" composer install
+	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" composer install
+
+platform-enviroment-copy: ## Run "platform" enviroment copy
+	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" cp .env.example .env
 
 platform-key-generate: ## Run "platform" key generate
 	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" php artisan key:generate
@@ -38,4 +46,4 @@ platform-php-cli: ## Run "platform" php-cli bash
 	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" bash
 
 platform-test: ## Execute "platform" application tests
-	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" ./vendor/bin/phpunit
+	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" php artisan test
