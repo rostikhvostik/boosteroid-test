@@ -1,6 +1,7 @@
 ```shell script
 git clone git@github.com:rostikhvostik/boosteroid-test.git boosteroid-test
 cd boosteroid-test 
+cp .env.dev .env
 make build
 make platform-init
 ```
