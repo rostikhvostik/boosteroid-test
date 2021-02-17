@@ -23,7 +23,8 @@ platform-init: platform-composer-install \
 	platform-migrate-fresh \
 	platform-db-seed \
 	platform-test \
-	platform-success
+	platform-success \
+	platform-chmod
 
 platform-composer-install: ## Run "platform" composer install
 	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" composer install
@@ -51,3 +52,6 @@ platform-test: ## Execute "platform" application tests
 
 platform-success: ## Execute "platform" application tests
 	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" php artisan success
+
+platform-chmod: ## Execute "platform" chmod
+	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" chmod -R 777 platform/storage/
