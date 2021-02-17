@@ -54,4 +54,4 @@ platform-success: ## Execute "platform" application tests
 	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" php artisan success
 
 platform-chmod: ## Execute "platform" chmod
-	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" chmod -R 777 platform/storage/
+	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" chmod -R 777 storage/
