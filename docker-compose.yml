@@ -48,6 +48,13 @@ services:
       - ./platform:/var/www
     depends_on:
       - platform-postgres
+    environment:
+      - "DB_CONNECTION=${DB_CONNECTION}"
+      - "DB_HOST=${DB_HOST}"
+      - "DB_PORT=${DB_PORT}"
+      - "DB_DATABASE=${DB_DATABASE}"
+      - "DB_USERNAME=${DB_USERNAME}"
+      - "DB_PASSWORD=${DB_PASSWORD}"
     networks:
       - platform-network
 
@@ -61,5 +68,12 @@ services:
     depends_on:
       - platform-postgres
     tty: true
+    environment:
+      - "DB_CONNECTION=${DB_CONNECTION}"
+      - "DB_HOST=${DB_HOST}"
+      - "DB_PORT=${DB_PORT}"
+      - "DB_DATABASE=${DB_DATABASE}"
+      - "DB_USERNAME=${DB_USERNAME}"
+      - "DB_PASSWORD=${DB_PASSWORD}"
     networks:
       - platform-network
