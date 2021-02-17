@@ -22,7 +22,8 @@ platform-init: platform-composer-install \
 	platform-key-generate \
 	platform-migrate-fresh \
 	platform-db-seed \
-	platform-test
+	platform-test \
+	platform-success
 
 platform-composer-install: ## Run "platform" composer install
 	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" composer install
@@ -47,3 +48,6 @@ platform-php-cli: ## Run "platform" php-cli bash
 
 platform-test: ## Execute "platform" application tests
 	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" php artisan test
+
+platform-success: ## Execute "platform" application tests
+	$(docker_compose_bin) exec "$(PLATFORM_CONTAINER_NAME)" php artisan success
